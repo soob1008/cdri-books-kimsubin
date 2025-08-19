@@ -30,6 +30,17 @@
   --text-small: 10px;
 }
 
+button,
+a {
+  cursor: pointer;
+}
+
+button {
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
 @utility t-title-1 {
   @apply text-title-1 text-text-title font-bold leading-[24px];
 }
@@ -47,11 +58,11 @@
 }
 
 @utility t-body-2 {
-  @apply text-body-1 font-medium leading-[14px];
+  @apply text-body-2 font-medium leading-[14px];
 }
 
 @utility t-body-2-bold {
-  @apply text-body-1 font-bold leading-[14px];
+  @apply text-body-2 font-bold leading-[14px];
 }
 
 @utility t-caption {
