@@ -27,7 +27,7 @@ export default function SelectBox({
     >
       <Select.Trigger
         className={twMerge(
-          `group flex items-center justify-between w-full px-2 py-3 border-b border-[#D2D6DA] bg-white text-text-primary t-body-2 focus:outline-none data-[placeholder]:text-text-subtitle`,
+          `group flex items-center justify-between h-9 px-2 py-3 border-b border-[#D2D6DA] bg-white text-text-primary t-body-2 focus:outline-none data-[placeholder]:text-text-subtitle`,
           className
         )}
       >
