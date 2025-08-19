@@ -43,6 +43,12 @@ button {
   }
 }
 
+@utility container {
+  @variant lg {
+    max-width: 960px;
+  }
+}
+
 @utility t-title-1 {
   @apply text-title-1 text-text-title font-bold leading-[24px];
 }
