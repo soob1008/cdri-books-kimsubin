@@ -5,3 +5,59 @@
 :root {
   font-family: 'Noto Sans KR', system-ui, Helvetica, Arial, sans-serif;
 }
+
+@theme {
+  /* Palette Colors  */
+  --color-primary: #4880ee;
+  --color-red: #e84118;
+  --color-gray: #dadada;
+  --color-lightgray: #f2f4f6;
+  --color-black: #222222;
+
+  /* Text Colors */
+  --color-text-primary: #353c49;
+  --color-text-secondary: #6d7582;
+  --color-text-title: #1a1e27;
+  --color-text-subtitle: #8d94a0;
+
+  /* Typograpy */
+  --text-title-1: 24px;
+  --text-title-2: 22px;
+  --text-title-3: 18px;
+  --text-body-1: 20px;
+  --text-body-2: 14px;
+  --text-caption: 16px;
+  --text-small: 10px;
+}
+
+@utility t-title-1 {
+  @apply text-title-1 text-text-title font-bold leading-[24px];
+}
+
+@utility t-title-2 {
+  @apply text-title-2 text-text-title font-bold leading-[24px];
+}
+
+@utility t-title-3 {
+  @apply text-title-3 text-text-title font-bold leading-[18px];
+}
+
+@utility t-body-1 {
+  @apply text-body-1 font-medium leading-[20px];
+}
+
+@utility t-body-2 {
+  @apply text-body-1 font-medium leading-[14px];
+}
+
+@utility t-body-2-bold {
+  @apply text-body-1 font-bold leading-[14px];
+}
+
+@utility t-caption {
+  @apply text-caption font-medium leading-[16px];
+}
+
+@utility t-small {
+  @apply text-small font-medium leading-[10px];
+}
