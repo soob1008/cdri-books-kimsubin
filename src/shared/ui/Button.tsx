@@ -5,7 +5,7 @@ type ButtonVariant = 'primary' | 'secondary' | 'secondary-outline';
 type ButtonTypo = 'caption' | 'body2';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  label: string;
+  label: string | React.ReactNode;
   type?: 'button' | 'submit';
   typography?: ButtonTypo;
   variant?: ButtonVariant;
@@ -22,7 +22,7 @@ export default function Button({
 }: ButtonProps) {
   const variantClass: Record<ButtonVariant, string> = {
     primary: 'bg-primary text-white',
-    secondary: 'bg-secondary text-white',
+    secondary: 'bg-lightgray text-text-secondary',
     'secondary-outline':
       'border border-text-subtitle text-text-subtitle bg-white ',
   };

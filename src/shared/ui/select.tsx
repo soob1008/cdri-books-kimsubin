@@ -1,11 +1,10 @@
 import * as Select from '@radix-ui/react-select';
-import DropIcon from '@assets/icons/icon_arrow.svg?react';
+import DropIcon from '@assets/icons/icon_arrow_20.svg?react';
 import { twMerge } from 'tailwind-merge';
 
-interface SelectBoxProps {
+interface SelectBoxProps
+  extends React.ComponentPropsWithoutRef<typeof Select.Root> {
   options: { value: string; label: string }[];
-  value?: string;
-  onChange?: (value: string) => void;
   defaultValue?: string;
   placeholder?: string;
   className?: string;
@@ -14,20 +13,15 @@ interface SelectBoxProps {
 export default function SelectBox({
   options = [],
   placeholder = '선택',
-  onChange,
-  value,
   defaultValue,
   className,
+  ...props
 }: SelectBoxProps) {
   return (
-    <Select.Root
-      value={value}
-      defaultValue={defaultValue}
-      onValueChange={onChange}
-    >
+    <Select.Root defaultValue={defaultValue} {...props}>
       <Select.Trigger
         className={twMerge(
-          `group flex items-center justify-between h-9 px-2 py-3 border-b border-[#D2D6DA] bg-white text-text-primary t-body-2 focus:outline-none data-[placeholder]:text-text-subtitle`,
+          `group flex items-center justify-between h-9 px-2 py-3 border-b border-border bg-white text-text-primary t-body-2 focus:outline-none data-[placeholder]:text-text-subtitle`,
           className
         )}
       >

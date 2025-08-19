@@ -15,7 +15,7 @@ export default function Input({
     <input
       placeholder={placeholder}
       className={twMerge(
-        'h-9 px-2 text-sm focus:outline-nonebg-white border-b border-[#D2D6DA] focus:outline-none focus:border-b-primary placeholder:text-text-subtitle',
+        'h-9 px-2 text-sm focus:outline-nonebg-white border-b border-border focus:outline-none focus:border-b-primary placeholder:text-text-subtitle',
         className
       )}
       {...props}
