@@ -5,9 +5,9 @@ export default function RootLayout() {
   return (
     <>
       <Header />
-      <div className="container mx-auto pt-40 pb-36">
+      <main className="container mx-auto pt-40 pb-36">
         <Outlet />
-      </div>
+      </main>
     </>
   );
 }

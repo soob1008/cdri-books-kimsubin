@@ -1,10 +1,16 @@
 import BookItem from './BookItem';
+import type { Book } from '@features/books/types/book';
 
-export default function BookList() {
+interface BookListProps {
+  books?: Book[];
+}
+
+export default function BookList({ books = [] }: BookListProps) {
   return (
     <ul>
-      <BookItem />
-      <BookItem />
+      {books.map((book) => (
+        <BookItem key={book.isbn} book={book} />
+      ))}
     </ul>
   );
 }

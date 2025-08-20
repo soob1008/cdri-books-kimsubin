@@ -2,7 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import SearchIcon from '@assets/icons/icon_search.svg?react';
 import CloseIcon from '@assets/icons/icon_close_24.svg?react';
 
-export default function SearchBar() {
+interface SearchBarProps {
+  searchInput: string;
+  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function SearchBar({
+  searchInput,
+  setSearchInput,
+}: SearchBarProps) {
   const [open, setOpen] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -10,7 +18,6 @@ export default function SearchBar() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      // ESC 키를 누르면 닫히도록 처리
       if (e.key === 'Escape') {
         setOpen(false);
         inputRef.current?.blur();
@@ -27,6 +34,7 @@ export default function SearchBar() {
         <input
           ref={inputRef}
           type="text"
+          value={searchInput}
           placeholder="검색어를 입력하세요"
           aria-expanded={open}
           aria-controls="search-suggestion-list"
@@ -35,6 +43,16 @@ export default function SearchBar() {
             const next = e.relatedTarget as HTMLElement | null;
             if (next && listRef.current?.contains(next)) return;
             setOpen(false);
+          }}
+          onChange={(e) => setSearchInput(e.target.value)}
+          onKeyDown={(e) => {
+            const isEnter = e.key === 'Enter';
+            const isComposing = e.nativeEvent.isComposing;
+            if (isEnter && !isComposing) {
+              e.preventDefault();
+
+              e.currentTarget.form?.requestSubmit();
+            }
           }}
           className="w-full h-[50px] pl-13 py-4 pr-4 bg-lightgray t-caption placeholder:text-text-subtitle rounded-t-3xl rounded-b-[var(--rounded-b)] focus:outline-none"
           style={{ ['--rounded-b' as string]: open ? '0px' : '24px' }}
@@ -45,15 +63,18 @@ export default function SearchBar() {
         <ul
           id="search-suggestion-list"
           ref={listRef}
-          role="searchList"
+          role="listbox"
           onMouseDown={(e) => e.preventDefault()}
           className="absolute z-10 w-full rounded-b-3xl bg-lightgray py-4 pl-13 pr-6"
         >
-          <li
-            className="flex items-center justify-between py-2"
-            role="searchOption"
-          >
-            <span className="t-caption text-text-subtitle">노르웨이 숲</span>
+          <li className="flex items-center justify-between py-2" role="option">
+            <button
+              type="button"
+              className="t-caption text-text-subtitle text-left w-full"
+              onClick={() => {}}
+            >
+              노르웨이 숲
+            </button>
             <button
               type="button"
               aria-label="검색어 삭제"

@@ -3,7 +3,15 @@ import { useState } from 'react';
 import Button from '@shared/ui/button';
 import SearchFilterPanel from '@features/books/components/SearchFilterPanel';
 
-export default function SearchFilter() {
+interface SearchFilterProps {
+  searchInput: string;
+  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function SearchFilter({
+  searchInput,
+  setSearchInput,
+}: SearchFilterProps) {
   const [openFilter, setOpenFilter] = useState(false);
 
   return (
@@ -15,7 +23,12 @@ export default function SearchFilter() {
         className="p-2.5"
         onClick={() => setOpenFilter((prev) => !prev)}
       />
-      <SearchFilterPanel open={openFilter} setOpen={setOpenFilter} />
+      <SearchFilterPanel
+        open={openFilter}
+        setOpen={setOpenFilter}
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+      />
     </div>
   );
 }

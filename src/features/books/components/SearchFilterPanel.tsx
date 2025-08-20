@@ -6,11 +6,15 @@ import Input from '@shared/ui/input';
 interface SearchFilterPanelProps {
   open: boolean;
   setOpen: (open: boolean) => void;
+  searchInput: string;
+  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function SearchFilterPanel({
   open,
   setOpen,
+  searchInput,
+  setSearchInput,
 }: SearchFilterPanelProps) {
   return (
     <aside
@@ -36,9 +40,14 @@ export default function SearchFilterPanel({
             { label: 'ISBN', value: 'isbn' },
           ]}
         />
-        <Input className="flex-1" />
+        <Input
+          className="flex-1"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
       </div>
       <Button
+        type="submit"
         label="검색하기"
         typography="body2"
         className="w-full py-[7px] h-9"
