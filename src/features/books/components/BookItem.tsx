@@ -4,14 +4,21 @@ import { twMerge } from 'tailwind-merge';
 import DropIcon from '@assets/icons/icon_arrow_14.svg?react';
 // import LikeFillIcon from '@assets/icons/icon_like_fill.svg?react';
 import LikeLineIcon from '@assets/icons/icon_like_line.svg?react';
+import type { Book } from '@features/books/types/book';
 
-export default function BookItem() {
+interface BookItemProps {
+  book: Book;
+}
+
+export default function BookItem({ book }: BookItemProps) {
   const [open, setOpen] = useState(false);
 
   const containerClass = twMerge(
     'flex justify-between gap-14 pl-12 pr-4  border-b border-border',
     open ? 'items-stretch pt-6 pb-[40px]' : 'items-center py-4'
   );
+
+  const { thumbnail, title, price, sale_price } = book;
 
   return (
     <li className={containerClass}>
@@ -21,15 +28,28 @@ export default function BookItem() {
           open ? 'items-start' : 'items-center'
         )}
       >
-        <BookImage open={open} />
-        <Info open={open} />
+        <BookImage open={open} title={title} thumbnail={thumbnail} />
+        <BookInfo open={open} book={book} />
       </div>
-      <Actions open={open} setOpen={setOpen} />
+      <Actions
+        open={open}
+        setOpen={setOpen}
+        price={price}
+        salePrice={sale_price}
+      />
     </li>
   );
 }
 
-function BookImage({ open }: { open: boolean }) {
+function BookImage({
+  open,
+  title,
+  thumbnail,
+}: {
+  open: boolean;
+  title: string;
+  thumbnail: string;
+}) {
   const imageClass = twMerge(
     'overflow-hidden relative',
     open ? 'w-[210px] h-[280px]' : 'w-[48px] h-[68px]'
@@ -42,11 +62,7 @@ function BookImage({ open }: { open: boolean }) {
 
   return (
     <div className={imageClass}>
-      <img
-        src="https://dummyimage.com/210x280/000/8affad"
-        alt="책 표지"
-        className="w-full h-full object-cover"
-      />
+      <img src={thumbnail} alt={title} className="w-full h-full object-cover" />
       <button type="button" aria-label="책 찜하기">
         {/* <LikeFillIcon/> */}
         <LikeLineIcon className={likeButtonClass} />
@@ -55,32 +71,37 @@ function BookImage({ open }: { open: boolean }) {
   );
 }
 
-function Info({ open }: { open: boolean }) {
+function BookInfo({ open, book }: { open: boolean; book: Book }) {
+  const { title, authors, contents, price, sale_price } = book;
   const infoClass = twMerge(
     'flex-1 flex',
     open
       ? 'flex-col items-start pt-8 pl-[20px]'
-      : 'flex-row items-center justify-between'
+      : 'flex-row items-center justify-between gap-6'
   );
 
   return (
     <div className={infoClass}>
       <div className="flex items-center gap-4">
-        <h3 className="t-title-3">노르웨이의 숲</h3>
-        <p className="t-body-2 text-text-secondary">무라카미 하루키</p>
+        <h3 className="t-title-3">{title}</h3>
+        <p className="t-body-2 text-text-secondary whitespace-nowrap">
+          {authors.join(', ')}
+        </p>
       </div>
 
       {open ? (
         <div className="mt-4">
           <h4 className="text-sm font-bold">책 소개</h4>
           <p className="mt-3 text-medium t-small whitespace-pre-line leading-4">
-            {`하루키 월드의 빛나는 다이아몬드 무라카미 하루키를 만나기 위해
-              하루키 월드의 빛나는 다이아몬드 무라카미 하루키를 만나기 위해
-              하루키 월드의 빛나는 다이아몬드 무라카미 하루키를 만나기 위해`}
+            {contents || '책 소개가 없습니다.'}
           </p>
         </div>
       ) : (
-        <span className="t-title-3">13,300원</span>
+        <span className="t-title-3 whitespace-nowrap">
+          {sale_price > 0
+            ? `${sale_price.toLocaleString()}원`
+            : `${price.toLocaleString()}원`}
+        </span>
       )}
     </div>
   );
@@ -89,13 +110,22 @@ function Info({ open }: { open: boolean }) {
 function Actions({
   open,
   setOpen,
+  price,
+  salePrice,
 }: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  price: number;
+  salePrice: number;
 }) {
   const actionsClass = twMerge(
     'flex',
     open ? 'flex-col justify-between items-end' : 'items-center gap-2'
+  );
+
+  const priceClass = twMerge(
+    'text-lg ',
+    salePrice > 0 ? 'font-light line-through' : 'font-bold'
   );
 
   return (
@@ -117,12 +147,16 @@ function Actions({
           <ul className="space-y-2">
             <li className="flex items-baseline justify-end gap-2">
               <span className="text-text-subtitle t-small">원가</span>
-              <span className="text-lg line-through font-light">16,000원</span>
+              <span className={priceClass}>{price.toLocaleString()}원</span>
             </li>
-            <li className="flex items-baseline justify-end gap-2">
-              <span className="text-text-subtitle t-small">할인가</span>
-              <span className="text-lg font-bold">16,000원</span>
-            </li>
+            {salePrice > 0 && (
+              <li className="flex items-baseline justify-end gap-2">
+                <span className="text-text-subtitle t-small">할인가</span>
+                <span className="text-lg font-bold">
+                  {salePrice.toLocaleString()}원
+                </span>
+              </li>
+            )}
           </ul>
           <Button label="구매하기" className="w-[240px]" />
         </div>
