@@ -3,7 +3,7 @@ import getBooks from '@features/books/api/getBooks';
 import type { BookResponse, BooksParams } from '@features/books/types/book';
 import { useInfiniteQueryScroll } from '@shared/hooks/useInfiniteQueryScroll';
 
-export function useBooksInfinite({
+export function useInfiniteBooks({
   query = '',
   size = 10,
   page = 1,

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SearchSection from '@features/books/components/SearchSection';
 import BookSection from '@features/books/components/BookSection';
-import { useBooksInfinite } from '@features/books/hooks/useBooksInfinite';
+import { useInfiniteBooks } from '@features/books/hooks/useInfiniteBooks';
 
 export default function BookSearchPage() {
   // TODO: 디바운싱 적용
@@ -12,7 +12,7 @@ export default function BookSearchPage() {
   const [target, setTarget] = useState<string | null>(null);
   const [openFilter, setOpenFilter] = useState(false);
 
-  const { query, ref } = useBooksInfinite({
+  const { query, ref } = useInfiniteBooks({
     query: keyword,
     size: 10,
     page: 1,
