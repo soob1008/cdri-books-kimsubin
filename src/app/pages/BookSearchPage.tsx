@@ -1,4 +1,3 @@
-// BookSearchPage.tsx
 import { useState } from 'react';
 import SearchSection from '@features/books/components/SearchSection';
 import BookSection from '@features/books/components/BookSection';
@@ -9,6 +8,7 @@ export default function BookSearchPage() {
   const [searchInput, setSearchInput] = useState('');
   const [keyword, setKeyword] = useState('');
 
+  // TODO: 검색 필터 연동
   const [target, setTarget] = useState<string | null>(null);
   const [openFilter, setOpenFilter] = useState(false);
 
@@ -26,6 +26,8 @@ export default function BookSearchPage() {
     e.preventDefault();
     setKeyword(searchInput.trim());
   };
+
+  // TODO: 로딩 상태 처리
 
   return (
     <>
