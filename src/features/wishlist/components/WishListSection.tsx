@@ -7,7 +7,7 @@ export default function WishListSection() {
     <section className="mt-6">
       <ResultSummary total={0} label="찜한 책" />
       <div className="mt-9">
-        <BookList />
+        {/* <BookList /> */}
         <EmptyState />
       </div>
     </section>
