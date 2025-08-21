@@ -1,7 +1,7 @@
 type BooksParams = {
   query: string;
   page: number;
-  size: number;
+  size?: number;
   sort?: 'accuracy' | 'latest';
   target?: 'title' | 'isbn' | 'publisher' | 'person';
 };

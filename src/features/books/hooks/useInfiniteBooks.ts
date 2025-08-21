@@ -5,18 +5,17 @@ import { useInfiniteQueryScroll } from '@shared/hooks/useInfiniteQueryScroll';
 
 export function useInfiniteBooks({
   query = '',
-  size = 10,
   page = 1,
   sort = 'accuracy',
   target,
 }: BooksParams) {
   const initial = useMemo<BooksParams>(
-    () => ({ query, page, size, sort, target }),
-    [query, page, size, sort, target]
+    () => ({ query, page, sort, target }),
+    [query, page, sort, target]
   );
 
   return useInfiniteQueryScroll<BookResponse>({
-    queryKey: ['books', query, size, sort, target],
+    queryKey: ['books', query, sort, target],
     initialPageParam: initial,
     enabled: true,
     queryFn: ({ pageParam }) => getBooks(pageParam),
