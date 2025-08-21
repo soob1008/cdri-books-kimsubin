@@ -10,7 +10,7 @@ export default function SearchSection({ onSubmit }: SearchSectionProps) {
   return (
     <section>
       <h2 className="t-title-2">도서 검색</h2>
-      <div className="flex items-center gap-4 mt-4">
+      <div className="flex flex-col md:flex-row md:items-center gap-4 mt-4">
         <SearchBar onSubmit={onSubmit} />
         <SearchFilter onSubmit={onSubmit} />
       </div>

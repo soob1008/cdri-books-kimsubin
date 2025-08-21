@@ -24,7 +24,7 @@ export default function SearchFilterPanel({
     <aside
       aria-label="검색 필터"
       hidden={!open}
-      className="absolute top-13 left-1/2 transform -translate-x-1/2 w-[360px] py-9 px-6 rounded-lg bg-white shadow-[0_4px_14px_6px_rgba(151,151,151,0.15)]"
+      className="absolute top-13 w-[280px] md:left-1/2 md:transform md:-translate-x-1/2 md:w-[360px] py-9 px-6 rounded-lg bg-white shadow-[0_4px_14px_6px_rgba(151,151,151,0.15)] z-8"
     >
       <button
         type="button"
