@@ -13,7 +13,7 @@ export default function SearchFilter({ onSubmit }: SearchFilterProps) {
   const [openFilter, setOpenFilter] = useState(false);
 
   return (
-    <div className="relative w-auto md:w-[200px] ">
+    <div className="relative flex items-center w-auto md:w-[200px] ">
       <Button
         label="상세 검색"
         variant="secondary-outline"
