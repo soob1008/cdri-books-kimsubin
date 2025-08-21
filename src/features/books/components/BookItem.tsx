@@ -16,7 +16,7 @@ export default function BookItem({ book, isWishlisted }: BookItemProps) {
   const [open, setOpen] = useState(false);
 
   const containerClass = twMerge(
-    'flex justify-between gap-14 pl-12 pr-4  border-b border-border',
+    'flex justify-between gap-4 pl-4 lg:gap-14 lg:pl-12 pr-4 border-b border-border',
     open ? 'items-stretch pt-6 pb-[40px]' : 'items-center py-4'
   );
 
@@ -26,7 +26,7 @@ export default function BookItem({ book, isWishlisted }: BookItemProps) {
     <li className={containerClass}>
       <div
         className={twMerge(
-          'flex-1 flex gap-12',
+          'flex justify-between gap-4 lg:gap-12 w-5/6',
           open ? 'items-start' : 'items-center'
         )}
       >
@@ -56,12 +56,14 @@ function BookImage({
   const updateWishList = useWishListStore((state) => state.updateWishList);
   const imageClass = twMerge(
     'overflow-hidden relative',
-    open ? 'w-[210px] h-[280px]' : 'w-[48px] h-[68px]'
+    open
+      ? 'w-[100px] h-[130px] lg:w-[210px] lg:h-[280px]'
+      : 'w-[48px] h-[68px] lg:w-[80px] lg:h-[120px]'
   );
 
   const likeButtonClass = twMerge(
     'absolute top-2 right-2',
-    open ? 'w-6 h-6 top-2 right-2' : 'w-4 h-4 top-0 right-0'
+    open ? 'w-6 h-6 top-2 right-2 ' : 'w-4 h-4 top-0 right-0'
   );
 
   const { thumbnail, title } = book;
@@ -89,16 +91,16 @@ function BookImage({
 function BookInfo({ open, book }: { open: boolean; book: Book }) {
   const { title, authors, contents, price, sale_price } = book;
   const infoClass = twMerge(
-    'flex-1 flex',
+    'flex flex-1 flex-wrap',
     open
-      ? 'flex-col items-start pt-8 pl-[20px]'
-      : 'flex-row items-center justify-between gap-6'
+      ? 'flex-col items-start pt-8 pl-2 lg:pl-[20px]'
+      : 'flex-col  justify-between gap-6 lg:flex-row lg:items-center'
   );
 
   return (
     <div className={infoClass}>
-      <div className="flex items-center gap-4 flex-wrap">
-        <h3 className="t-title-3">{title}</h3>
+      <div className="flex  gap-4 flex-col lg:flex-row lg:items-center">
+        <h3 className="max-w-[80%] t-body-2 font-bold lg:t-title-3">{title}</h3>
         <p className="t-body-2 text-text-secondary whitespace-nowrap">
           {authors.join(', ')}
         </p>
@@ -112,7 +114,7 @@ function BookInfo({ open, book }: { open: boolean; book: Book }) {
           </p>
         </div>
       ) : (
-        <span className="t-title-3 whitespace-nowrap">
+        <span className="t-body-2 font-bold lg:t-title-3 whitespace-nowrap">
           {sale_price > 0
             ? `${sale_price.toLocaleString()}원`
             : `${price.toLocaleString()}원`}
@@ -136,7 +138,7 @@ function Actions({
   url: string;
 }) {
   const actionsClass = twMerge(
-    'flex',
+    'flex justify-end items-center',
     open ? 'flex-col justify-between items-end' : 'items-center gap-2'
   );
 
@@ -152,7 +154,7 @@ function Actions({
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center rounded-lg bg-primary py-4 px-7 t-caption text-white"
+          className="inline-flex items-center justify-center h-12 rounded-lg bg-primary px-7 t-caption text-white whitespace-nowrap"
         >
           구매하기
         </a>
@@ -164,11 +166,11 @@ function Actions({
           </span>
         }
         variant="secondary"
-        className="w-[115px] p-4"
+        className="w-[115px]"
         onClick={() => setOpen((prev) => !prev)}
       />
       {open && (
-        <div className="flex flex-col items-end gap-8 w-[240px]">
+        <div className="flex flex-col items-end gap-8 lg:w-[240px]">
           <ul className="space-y-2">
             <li className="flex items-baseline justify-end gap-2">
               <span className="text-text-subtitle t-small">원가</span>
@@ -187,7 +189,7 @@ function Actions({
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-lg bg-primary py-4 px-7 w-[240px] t-caption text-white"
+            className="inline-flex items-center justify-center rounded-lg bg-primary h-12 px-7 lg:w-[240px] t-caption text-white"
           >
             구매하기
           </a>

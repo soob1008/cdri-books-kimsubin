@@ -21,7 +21,7 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
   const visibleHistories = open && histories.length > 0;
 
   return (
-    <div className="relative w-[480px]">
+    <div className="relative sm:w-[400px] md:w-[480px]">
       <div className="relative">
         <SearchIcon className="pointer-events-none absolute left-[10px] top-1/2 -translate-y-1/2" />
         <input
@@ -49,7 +49,7 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
           ref={listRef}
           role="listbox"
           onMouseDown={(e) => e.preventDefault()}
-          className="absolute z-10 w-full rounded-b-3xl bg-lightgray py-4"
+          className="absolute z-9 w-full rounded-b-3xl bg-lightgray py-4"
         >
           {histories.map((history) => (
             <li

@@ -36,7 +36,7 @@ export default function Button({
     <button
       type={type}
       className={twMerge(
-        'py-4 px-7 rounded-lg disabled:opacity-50',
+        'flex items-center justify-center h-12 px-4 rounded-lg disabled:opacity-50 whitespace-nowrap',
         variantClass[variant],
         typoClasses[typography],
         className
