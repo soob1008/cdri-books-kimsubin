@@ -2,7 +2,7 @@ import BookItem from './BookItem';
 import type { Book } from '@features/books/types/book';
 
 interface BookListProps {
-  books?: Book[];
+  books: Book[];
 }
 
 export default function BookList({ books = [] }: BookListProps) {

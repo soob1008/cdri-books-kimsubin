@@ -2,8 +2,8 @@ type BooksParams = {
   query: string;
   page: number;
   size?: number;
-  sort?: 'accuracy' | 'latest';
-  target?: 'title' | 'isbn' | 'publisher' | 'person';
+  sort?: Sort;
+  target?: BookTarget;
 };
 
 type BookResponse = {
@@ -29,4 +29,7 @@ type Book = {
   sale_price: number;
 };
 
-export type { BooksParams, BookResponse, Book };
+type Sort = 'accuracy' | 'latest';
+type BookTarget = 'title' | 'isbn' | 'publisher' | 'person';
+
+export type { BooksParams, BookResponse, Book, BookTarget, Sort };
