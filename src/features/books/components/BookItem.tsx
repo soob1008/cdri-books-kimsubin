@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '@shared/ui/button';
+import Button from '@shared/ui/Button';
 import { twMerge } from 'tailwind-merge';
 import DropIcon from '@assets/icons/icon_arrow_14.svg?react';
 // import LikeFillIcon from '@assets/icons/icon_like_fill.svg?react';
@@ -18,7 +18,7 @@ export default function BookItem({ book }: BookItemProps) {
     open ? 'items-stretch pt-6 pb-[40px]' : 'items-center py-4'
   );
 
-  const { thumbnail, title, price, sale_price } = book;
+  const { thumbnail, title, price, sale_price, url } = book;
 
   return (
     <li className={containerClass}>
@@ -36,6 +36,7 @@ export default function BookItem({ book }: BookItemProps) {
         setOpen={setOpen}
         price={price}
         salePrice={sale_price}
+        url={url}
       />
     </li>
   );
@@ -112,11 +113,13 @@ function Actions({
   setOpen,
   price,
   salePrice,
+  url,
 }: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   price: number;
   salePrice: number;
+  url: string;
 }) {
   const actionsClass = twMerge(
     'flex',
@@ -130,8 +133,16 @@ function Actions({
 
   return (
     <div className={actionsClass}>
-      {!open && <Button label="구매하기" />}
-
+      {!open && (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center rounded-lg bg-primary py-4 px-7 t-caption text-white"
+        >
+          구매하기
+        </a>
+      )}
       <Button
         label={
           <span className="flex items-center gap-2">
@@ -158,7 +169,14 @@ function Actions({
               </li>
             )}
           </ul>
-          <Button label="구매하기" className="w-[240px]" />
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-lg bg-primary py-4 px-7 w-[240px] t-caption text-white"
+          >
+            구매하기
+          </a>
         </div>
       )}
     </div>

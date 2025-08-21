@@ -8,6 +8,8 @@ interface SelectBoxProps
   defaultValue?: string;
   placeholder?: string;
   className?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
 }
 
 export default function SelectBox({
@@ -15,10 +17,17 @@ export default function SelectBox({
   placeholder = '선택',
   defaultValue,
   className,
+  value,
+  onValueChange,
   ...props
 }: SelectBoxProps) {
   return (
-    <Select.Root defaultValue={defaultValue} {...props}>
+    <Select.Root
+      defaultValue={defaultValue}
+      value={value}
+      onValueChange={onValueChange}
+      {...props}
+    >
       <Select.Trigger
         className={twMerge(
           `group flex items-center justify-between h-9 px-2 py-3 border-b border-border bg-white text-text-primary t-body-2 focus:outline-none data-[placeholder]:text-text-subtitle`,

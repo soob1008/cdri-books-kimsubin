@@ -4,11 +4,15 @@ export default async function getBooks({
   query = '',
   page = 1,
   size = 10,
+  target = 'title',
+  sort = 'accuracy',
 }: BooksParams) {
   const params = new URLSearchParams({
     query,
     page: String(page),
     size: String(size),
+    target,
+    sort,
   });
 
   const res = await fetch(

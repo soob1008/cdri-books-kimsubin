@@ -1,17 +1,14 @@
 import { useState } from 'react';
 
-import Button from '@shared/ui/button';
+import Button from '@shared/ui/Button'
 import SearchFilterPanel from '@features/books/components/SearchFilterPanel';
+import type { BooksParams } from '@features/books/types/book';
 
 interface SearchFilterProps {
-  searchInput: string;
-  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
+  onSubmit: (data: BooksParams) => void;
 }
 
-export default function SearchFilter({
-  searchInput,
-  setSearchInput,
-}: SearchFilterProps) {
+export default function SearchFilter({ onSubmit }: SearchFilterProps) {
   const [openFilter, setOpenFilter] = useState(false);
 
   return (
@@ -26,8 +23,7 @@ export default function SearchFilter({
       <SearchFilterPanel
         open={openFilter}
         setOpen={setOpenFilter}
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
+        onSubmit={onSubmit}
       />
     </div>
   );

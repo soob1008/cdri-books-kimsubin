@@ -1,21 +1,25 @@
 import CloseIcon from '@assets/icons/icon_close_20.svg?react';
-import SelectBox from '@shared/ui/select';
-import Button from '@shared/ui/button';
-import Input from '@shared/ui/input';
+import SelectBox from '@shared/ui/Select';
+import Button from '@shared/ui/Button';
+import Input from '@shared/ui/Input';
+import { Controller, useFormContext } from 'react-hook-form';
+import type { BooksParams } from '@features/books/types/book';
 
 interface SearchFilterPanelProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  searchInput: string;
-  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
+  onSubmit: (data: BooksParams) => void;
 }
 
 export default function SearchFilterPanel({
   open,
   setOpen,
-  searchInput,
-  setSearchInput,
+  onSubmit,
 }: SearchFilterPanelProps) {
+  const { control, watch, handleSubmit, setValue } =
+    useFormContext<BooksParams>();
+  const query = watch('query');
+
   return (
     <aside
       aria-label="검색 필터"
@@ -26,24 +30,36 @@ export default function SearchFilterPanel({
         type="button"
         aria-label="상세 검색 닫기"
         className="absolute top-2 right-2"
-        onClick={() => setOpen(false)}
+        onClick={() => {
+          setOpen(false);
+        }}
       >
         <CloseIcon />
       </button>
       <div className="flex gap-1 mb-4">
-        <SelectBox
-          className="w-25"
-          options={[
-            { label: '제목', value: 'title' },
-            { label: '저자', value: 'author' },
-            { label: '출판사', value: 'publisher' },
-            { label: 'ISBN', value: 'isbn' },
-          ]}
+        <Controller
+          name="target"
+          control={control}
+          render={({ field }) => (
+            <SelectBox
+              className="w-25"
+              options={[
+                { label: '제목', value: 'title' },
+                { label: '저자명', value: 'person' },
+                { label: '출판사', value: 'publisher' },
+                { label: 'ISBN', value: 'isbn' },
+              ]}
+              value={field.value}
+              onValueChange={(value) => {
+                field.onChange(value);
+              }}
+            />
+          )}
         />
         <Input
+          value={query}
           className="flex-1"
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
+          onChange={(e) => setValue('query', e.target.value)}
         />
       </div>
       <Button
@@ -51,6 +67,10 @@ export default function SearchFilterPanel({
         label="검색하기"
         typography="body2"
         className="w-full py-[7px] h-9"
+        onClick={() => {
+          handleSubmit(onSubmit)();
+          setOpen(false);
+        }}
       />
     </aside>
   );

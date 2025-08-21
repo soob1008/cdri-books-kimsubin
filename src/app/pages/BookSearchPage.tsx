@@ -2,45 +2,46 @@ import { useState } from 'react';
 import SearchSection from '@features/books/components/SearchSection';
 import BookSection from '@features/books/components/BookSection';
 import { useInfiniteBooks } from '@features/books/hooks/useInfiniteBooks';
+import { FormProvider, useForm } from 'react-hook-form';
+import type { BooksParams } from '@features/books/types/book';
 
 export default function BookSearchPage() {
-  // TODO: 디바운싱 적용
-  const [searchInput, setSearchInput] = useState('');
-  const [keyword, setKeyword] = useState('');
-
-  // TODO: 검색 필터 연동
-  const [target, setTarget] = useState<string | null>(null);
-  const [openFilter, setOpenFilter] = useState(false);
-
-  const { query, ref } = useInfiniteBooks({
-    query: keyword,
-    size: 10,
-    page: 1,
+  const method = useForm<BooksParams>({
+    defaultValues: {
+      query: '',
+      page: 1,
+      sort: 'accuracy',
+      target: 'title',
+    },
   });
+  const {
+    formState: { defaultValues },
+  } = method;
+
+  const [searchQuerys, setSearchQuerys] = useState(
+    defaultValues as BooksParams
+  );
+
+  const { query, ref } = useInfiniteBooks(searchQuerys);
 
   const books = query.data?.pages.flatMap((p) => p.documents ?? []) ?? [];
   const meta = query.data?.pages[0]?.meta;
   const hasNextPage = query.hasNextPage;
-
-  const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setKeyword(searchInput.trim());
+  const handleSubmit = (data: BooksParams) => {
+    setSearchQuerys({ ...data, page: 1 });
   };
 
   // TODO: 로딩 상태 처리
 
   return (
-    <>
-      <form onSubmit={handleSubmitSearch}>
-        <SearchSection
-          searchInput={searchInput}
-          setSearchInput={setSearchInput}
-        />
+    <FormProvider {...method}>
+      <form onSubmit={method.handleSubmit(handleSubmit)}>
+        <SearchSection onSubmit={handleSubmit} />
       </form>
       <BookSection books={books} total={meta?.total_count ?? 0} />
       {books.length > 0 && hasNextPage && (
         <div ref={ref} className="w-full h-px" />
       )}
-    </>
+    </FormProvider>
   );
 }
