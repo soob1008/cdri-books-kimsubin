@@ -1,6 +1,6 @@
 import BookItem from './BookItem';
 import type { Book } from '@features/books/types/book';
-import { useWishListStore } from '@features/wishlist/store/wishlist.store';
+import { useWishListStore } from '@features/wishlist/store/wishList.store';
 
 interface BookListProps {
   books: Book[];

@@ -5,7 +5,7 @@ import DropIcon from '@assets/icons/icon_arrow_14.svg?react';
 import LikeFillIcon from '@assets/icons/icon_like_fill.svg?react';
 import LikeLineIcon from '@assets/icons/icon_like_line.svg?react';
 import type { Book } from '@features/books/types/book';
-import { useWishListStore } from '@features/wishlist/store/wishlist.store';
+import { useWishListStore } from '@features/wishlist/store/wishList.store';
 
 interface BookItemProps {
   book: Book;
@@ -53,7 +53,7 @@ function BookImage({
   book: Book;
   isWishlisted: boolean;
 }) {
-  const updateWishlist = useWishListStore((state) => state.updateWishlist);
+  const updateWishList = useWishListStore((state) => state.updateWishList);
   const imageClass = twMerge(
     'overflow-hidden relative',
     open ? 'w-[210px] h-[280px]' : 'w-[48px] h-[68px]'
@@ -73,7 +73,7 @@ function BookImage({
         type="button"
         aria-label="책 찜하기"
         onClick={() => {
-          updateWishlist(book);
+          updateWishList(book);
         }}
       >
         {isWishlisted ? (
