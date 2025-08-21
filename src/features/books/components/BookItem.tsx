@@ -83,7 +83,7 @@ function BookInfo({ open, book }: { open: boolean; book: Book }) {
 
   return (
     <div className={infoClass}>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 flex-wrap">
         <h3 className="t-title-3">{title}</h3>
         <p className="t-body-2 text-text-secondary whitespace-nowrap">
           {authors.join(', ')}
