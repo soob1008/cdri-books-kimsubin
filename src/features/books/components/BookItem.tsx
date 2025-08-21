@@ -2,15 +2,17 @@ import { useState } from 'react';
 import Button from '@shared/ui/Button';
 import { twMerge } from 'tailwind-merge';
 import DropIcon from '@assets/icons/icon_arrow_14.svg?react';
-// import LikeFillIcon from '@assets/icons/icon_like_fill.svg?react';
+import LikeFillIcon from '@assets/icons/icon_like_fill.svg?react';
 import LikeLineIcon from '@assets/icons/icon_like_line.svg?react';
 import type { Book } from '@features/books/types/book';
+import { useWishListStore } from '@features/wishlist/store/wishList.store';
 
 interface BookItemProps {
   book: Book;
+  isWishlisted: boolean;
 }
 
-export default function BookItem({ book }: BookItemProps) {
+export default function BookItem({ book, isWishlisted }: BookItemProps) {
   const [open, setOpen] = useState(false);
 
   const containerClass = twMerge(
@@ -18,7 +20,7 @@ export default function BookItem({ book }: BookItemProps) {
     open ? 'items-stretch pt-6 pb-[40px]' : 'items-center py-4'
   );
 
-  const { thumbnail, title, price, sale_price, url } = book;
+  const { price, sale_price, url } = book;
 
   return (
     <li className={containerClass}>
@@ -28,7 +30,7 @@ export default function BookItem({ book }: BookItemProps) {
           open ? 'items-start' : 'items-center'
         )}
       >
-        <BookImage open={open} title={title} thumbnail={thumbnail} />
+        <BookImage open={open} book={book} isWishlisted={isWishlisted} />
         <BookInfo open={open} book={book} />
       </div>
       <Actions
@@ -44,13 +46,14 @@ export default function BookItem({ book }: BookItemProps) {
 
 function BookImage({
   open,
-  title,
-  thumbnail,
+  book,
+  isWishlisted,
 }: {
   open: boolean;
-  title: string;
-  thumbnail: string;
+  book: Book;
+  isWishlisted: boolean;
 }) {
+  const updateWishList = useWishListStore((state) => state.updateWishList);
   const imageClass = twMerge(
     'overflow-hidden relative',
     open ? 'w-[210px] h-[280px]' : 'w-[48px] h-[68px]'
@@ -61,12 +64,23 @@ function BookImage({
     open ? 'w-6 h-6 top-2 right-2' : 'w-4 h-4 top-0 right-0'
   );
 
+  const { thumbnail, title } = book;
+
   return (
     <div className={imageClass}>
       <img src={thumbnail} alt={title} className="w-full h-full object-cover" />
-      <button type="button" aria-label="책 찜하기">
-        {/* <LikeFillIcon/> */}
-        <LikeLineIcon className={likeButtonClass} />
+      <button
+        type="button"
+        aria-label="책 찜하기"
+        onClick={() => {
+          updateWishList(book);
+        }}
+      >
+        {isWishlisted ? (
+          <LikeFillIcon className={likeButtonClass} />
+        ) : (
+          <LikeLineIcon className={likeButtonClass} />
+        )}
       </button>
     </div>
   );
