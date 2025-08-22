@@ -4,6 +4,7 @@ import Button from '@shared/ui/Button';
 import Input from '@shared/ui/Input';
 import { Controller, useFormContext } from 'react-hook-form';
 import type { BooksParams } from '@features/books/types/book';
+import { SEARCH_FILTER_OPTIONS } from '@features/books/constants/option';
 
 interface SearchFilterPanelProps {
   open: boolean;
@@ -43,12 +44,7 @@ export default function SearchFilterPanel({
           render={({ field }) => (
             <SelectBox
               className="w-25"
-              options={[
-                { label: '제목', value: 'title' },
-                { label: '저자명', value: 'person' },
-                { label: '출판사', value: 'publisher' },
-                { label: 'ISBN', value: 'isbn' },
-              ]}
+              options={SEARCH_FILTER_OPTIONS}
               value={field.value}
               onValueChange={(value) => {
                 field.onChange(value);

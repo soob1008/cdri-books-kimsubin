@@ -41,7 +41,7 @@ export default function SelectBox({
       </Select.Trigger>
       <Select.Portal>
         <Select.Content
-          className="mt-[6px] bg-white shadow-[0_0_4px_0_rgba(0,0,0,0.25)] w-[var(--radix-select-trigger-width)] max-h-64 overflow-auto"
+          className="mt-[6px] bg-white shadow-[0_0_4px_0_rgba(0,0,0,0.25)] w-[var(--radix-select-trigger-width)] max-h-64 overflow-auto z-10"
           position="popper"
         >
           <Select.Viewport>

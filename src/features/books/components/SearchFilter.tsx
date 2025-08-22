@@ -3,6 +3,7 @@ import Button from '@shared/ui/Button';
 import SearchFilterPanel from '@features/books/components/SearchFilterPanel';
 import type { BooksParams, BookTarget } from '@features/books/types/book';
 import { useFormContext } from 'react-hook-form';
+import { SEARCH_FILTER_OPTIONS } from '@features/books/constants/option';
 
 interface SearchFilterProps {
   onSubmit: (data: BooksParams) => void;
@@ -34,16 +35,7 @@ export default function SearchFilter({ onSubmit }: SearchFilterProps) {
 }
 
 const getTargetLabel = (target: BookTarget) => {
-  switch (target) {
-    case 'title':
-      return '제목';
-    case 'person':
-      return '저자명';
-    case 'publisher':
-      return '출판사';
-    case 'isbn':
-      return 'ISBN';
-    default:
-      return '';
-  }
+  return (
+    SEARCH_FILTER_OPTIONS.find((option) => option.value === target)?.label || ''
+  );
 };
