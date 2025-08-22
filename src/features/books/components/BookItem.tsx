@@ -91,16 +91,16 @@ function BookImage({
 function BookInfo({ open, book }: { open: boolean; book: Book }) {
   const { title, authors, contents, price, sale_price } = book;
   const infoClass = twMerge(
-    'flex flex-1 flex-wrap',
+    'flex flex-1',
     open
-      ? 'flex-col items-start pt-8 pl-2 lg:pl-[20px]'
-      : 'flex-col  justify-between gap-6 lg:flex-row lg:items-center'
+      ? 'flex-col items-start pt-8 pl-2 md:pl-[20px]'
+      : 'flex-col justify-between gap-6 md:flex-row md:items-center'
   );
 
   return (
     <div className={infoClass}>
-      <div className="flex  gap-4 flex-col lg:flex-row lg:items-center">
-        <h3 className="max-w-[80%] t-body-2 font-bold lg:t-title-3">{title}</h3>
+      <div className="flex gap-4 flex-col md:flex-row md:items-center">
+        <h3 className="max-w-[75%] t-body-2 font-bold lg:t-title-3">{title}</h3>
         <p className="t-body-2 text-text-secondary whitespace-nowrap">
           {authors.join(', ')}
         </p>
