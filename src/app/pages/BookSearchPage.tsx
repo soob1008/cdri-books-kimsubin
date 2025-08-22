@@ -38,6 +38,8 @@ export default function BookSearchPage() {
     setOpenHistory(false);
   };
 
+  console.log('watch:', method.watch());
+
   return (
     <FormProvider {...method}>
       <form onSubmit={method.handleSubmit(handleSubmit)}>
@@ -46,7 +48,11 @@ export default function BookSearchPage() {
       {isLoading ? (
         <Loading />
       ) : (
-        <BookSection books={books} total={meta?.total_count ?? 0} />
+        <BookSection
+          books={books}
+          total={meta?.total_count ?? 0}
+          onSubmit={handleSubmit}
+        />
       )}
 
       {isFetchingNextPage && <Loading />}
