@@ -5,6 +5,7 @@ import { useInfiniteBooks } from '@features/books/hooks/useInfiniteBooks';
 import { FormProvider, useForm } from 'react-hook-form';
 import type { BooksParams } from '@features/books/types/book';
 import { useSearchHistoryStore } from '@features/books/store/searchHistory.store';
+import Loading from '@shared/ui/Loading';
 
 export default function BookSearchPage() {
   const method = useForm<BooksParams>({
@@ -29,7 +30,7 @@ export default function BookSearchPage() {
 
   const books = query.data?.pages.flatMap((p) => p.documents ?? []) ?? [];
   const meta = query.data?.pages[0]?.meta;
-  const hasNextPage = query.hasNextPage;
+  const { isLoading, isFetchingNextPage, hasNextPage } = query;
 
   const handleSubmit = (data: BooksParams) => {
     setSearchQuerys({ ...data, page: 1 });
@@ -37,14 +38,19 @@ export default function BookSearchPage() {
     setOpenHistory(false);
   };
 
-  // TODO: 로딩 상태 처리
-
   return (
     <FormProvider {...method}>
       <form onSubmit={method.handleSubmit(handleSubmit)}>
         <SearchSection onSubmit={handleSubmit} />
       </form>
-      <BookSection books={books} total={meta?.total_count ?? 0} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <BookSection books={books} total={meta?.total_count ?? 0} />
+      )}
+
+      {isFetchingNextPage && <Loading />}
+
       {books.length > 0 && hasNextPage && (
         <div ref={ref} className="w-full h-px" />
       )}

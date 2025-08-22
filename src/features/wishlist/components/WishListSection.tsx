@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import EmptyState from '@shared/ui/EmptyState';
 import ResultSummary from '@shared/ui/ResultSummary';
 import BookList from '@features/books/components/BookList';
+import Loading from '@shared/ui/Loading';
 
 export default function WishListSection() {
   const wishlist = useWishListStore((state) => state.wishlist);
@@ -31,7 +32,7 @@ export default function WishListSection() {
             <BookList books={visible} />
             {visible.length < wishlist.length && (
               <div ref={ref} className="h-10 flex justify-center items-center">
-                로딩 중
+                <Loading />
               </div>
             )}
           </>
