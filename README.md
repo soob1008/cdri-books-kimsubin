@@ -55,7 +55,7 @@ src/
 │     ├─ components/
 │     │  └─ WishListSection.tsx
 │     └─ store/
-│        └─ wishlist.store.ts    # Zustand + localStorage persist
+│        └─ wishlist.store.ts    # zustand + localStorage persist
 │
 ├─ shared/                       # 공통 폴더
 │  ├─ ui/
@@ -78,9 +78,10 @@ src/
 
 ### 주요 코드 설정
 
-#### 도서 검색
+#### 1. 도서 검색
 
-무한 스크롤 공통 훅 - /shard/hooks/useInfiniteQueryScroll.ts
+**무한 스크롤 공통 훅**
+/shard/hooks/useInfiniteQueryScroll.ts
 
 ```js
 export function useInfiniteQueryScroll<T>({
@@ -125,7 +126,8 @@ Intersection Observer를 적용해야할 ref와 react query에서 제공하는 �
 
 React Query의 useInfiniteQuery 훅을 사용했습니다. useQuery와 달리 useInfiniteQuery는 페이지 단위를 누적관리합니다. 또한, hasNextPage, fetchNextPage 등 무한 스크롤 전용 상태를 제공하기 때문에 상태 처리를 해야하는 경우 편리하게 사용할 수 있습니다.
 
-도서 API - /features/books/hooks/useInfiniteBooks.ts
+**도서 API**
+/features/books/hooks/useInfiniteBooks.ts
 
 ```js
 return (
@@ -147,9 +149,9 @@ return (
 useInfiniteQueryScroll 를 사용하여 도서 검색 API를 무한스크롤 적용된 형태로 가져올 수 있도록 했습니다.
 다음 페이지를 불러올 때, 페이지가 끝이면 리턴해주고 끝이 아니면 페이지 param을 수정해서 다음 페이지의 데이터를 가져옵니다.
 
-#### 찜 목록, 검색어 저장
+#### 2. 찜 목록, 검색어 저장
 
-zustand + persist 를 사용해서 찜 목록과 검색어를 저장했습니다.
+**zustand + persist** 를 사용해서 찜 목록과 검색어를 저장했습니다.
 
 ```js
 export const useWishListStore = create<WishlistState>()(
@@ -215,26 +217,25 @@ export const useSearchHistoryStore = create<SearchHistoryState>()(
 #### Zustand
 
 가볍고 직관적인 전역 상태 관리 라이브러리로 Redux 보다는 코드가 간단하고 Recoil 보다는 프로젝트 규모가 작은 경우에 더 적합합니다.
-찜기능 같은 경우에 로컬스토리지를 통해 직접 구현할 경우는 매번 JSON.stringify, JSON.parse를 해줘야하고 키가 같으면 덮어 씌워지거나 하는 문제가 발생할 수 있습니다.
-Zustand persist 같은 경우에는 이 과정을 자동으로 처리해주기 때문에 훨씬 안정적이고 구현이 간편합니다.
+
+찜기능 같은 경우에 로컬스토리지를 통해 직접 구현할 경우는 매번 JSON.stringify, JSON.parse를 해줘야하고 키가 같으면 덮어 씌워지거나 하는 문제가 발생할 수 있습니다. Zustand persist 같은 경우에는 이 과정을 자동으로 처리해주기 때문에 훨씬 안정적이고 구현이 간편합니다.
 
 #### Vite
 
-React 프로젝트를 간단한 명령어로 빠르게 세팅할 수 있어 초기 개발 효율성이 좋습니다.
-또한, 가볍고 빠른 개발 환경을 제공해줍니다.
+React 프로젝트를 간단한 명령어로 빠르게 세팅할 수 있어 초기 개발 효율성이 좋습니다. 또한, 가볍고 빠른 개발 환경을 제공해줍니다.
 
 ### 강조하고 싶은 기능
 
-#### 도서 리스트 무한스크롤 적용
+#### 1. 도서 리스트 무한스크롤 적용
 
 - 버튼 클릭 없이 부드럽게 사용자에게 정보를 제공할 수 있습니다.
 - React Query가 페이지네이션/로딩 상태를 관리하므로 코드 단순합니다.
 - 재사용 가능한 커스텀 훅(useInfiniteQueryScroll)으로 다른 리스트 API에도 쉽게 적용 가능합니다.
 
-#### 검색어 저장
+#### 2. 검색어 저장
 
 - zustand persist 사용으로 브라우저에서 안정적으로 데이터 저장이 가능합니다.
 
-#### 검색 필터
+#### 3. 검색 필터
 
 - 정렬 조건을 추가하여 정확도순뿐만 아니라 발간일순 데이터도 제공합니다. 검색 시 사용자가 원하는 기준에 맞춘 정렬 기능도 중요하다고 생각되어 추가했습니다.
