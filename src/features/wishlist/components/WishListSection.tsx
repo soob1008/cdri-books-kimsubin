@@ -9,7 +9,7 @@ import Loading from '@shared/ui/Loading';
 export default function WishListSection() {
   const wishlist = useWishListStore((state) => state.wishlist);
   const [page, setPage] = useState(1);
-  const { ref, inView } = useInView({ rootMargin: '200px', threshold: 1 });
+  const { ref, inView } = useInView({ rootMargin: '200px', threshold: 0.1 });
 
   const size = 10;
   const visible = wishlist.slice(0, page * size);
