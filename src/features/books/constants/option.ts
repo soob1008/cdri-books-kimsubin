@@ -7,5 +7,5 @@ export const SEARCH_FILTER_OPTIONS = [
 
 export const SORT_OPTIONS = [
   { label: '정확도순', value: 'accuracy' },
-  { label: '최신순', value: 'latest' },
+  { label: '발간일순', value: 'latest' },
 ];
